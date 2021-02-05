@@ -1,6 +1,6 @@
 # Script
 
-## Vorbereitung: 
+## Vorbereitung:
 
 ### Einmal installieren:
 
@@ -8,9 +8,9 @@
 * Andere Bookmarks aus diesem Script im Browser ablegen
 * SSH
 * Git
-* Node
+* Node 14 per nvm
 * Wrangler
-  - `npm install -g @cloudflare/wrangler` 
+  - `npm install -g @cloudflare/wrangler`
   - Wrangler per `wrangler login` konfigurieren
 * PHPStorm
 
@@ -40,16 +40,16 @@
 * Devtools -> Lighthouse-Test durchführen -> 30-40
 * [Pagespeed Insights](https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fwww.duesseldorf.de%2F)
 * [Webpagetest Ergebnis](https://webpagetest.org/result/210123_DiJ7_de61d49178f82fafce917d1cf98797ed/)
-* Erkenntnisse: 
-    - Kein HTTP/2
-    - Viele JavaScript Ressourcen
-    - Riesen CSS
+* Erkenntnisse:
+  - Kein HTTP/2
+  - Viele JavaScript Ressourcen
+  - Riesen CSS
 * Video angucken
 * Performance Profiler laufen lassen -> Screenshots + Web Core Vitals aktivieren
-    - FCP (First Contentful Paint) beginnt wenn CSS da ist
-    - Viele LS (Layout Shifts), wenn Bilder geladen werden
-    - Massive LS und LCP (Largest Contentful Paint) bei L (Load)
-    - Long Tasks vorwiegend bei DCL (DOM Content Loaded) und L (Load)
+  - FCP (First Contentful Paint) beginnt wenn CSS da ist
+  - Viele LS (Layout Shifts), wenn Bilder geladen werden
+  - Massive LS und LCP (Largest Contentful Paint) bei L (Load)
+  - Long Tasks vorwiegend bei DCL (DOM Content Loaded) und L (Load)
 
 ## 2. CSS Laden optimieren
 
@@ -203,7 +203,7 @@ git reset --hard && git checkout step-4
 
 * Bilder mit [Squoosh](https://squoosh.app) optimieren
 * Bilder sehen sogar besser aus
-* Reveal in Source Panel 
+* Reveal in Source Panel
 * Right Click: "Save for Overrides"
 * Drag & Drop
 
@@ -266,10 +266,12 @@ git reset --hard && git checkout step-6
 
 * [https://workers.cloudflare.com/](https://workers.cloudflare.com/) öffnen
 * Im Prinzip Serverless Functions, aber ohne "Cold Starts"
-* JavaScript wird auch unterstützt
-* Node Bibliotheken sind nutzbar
-* Intelligenter Proxy als ein Use-Case 
-* Lassen sich ähnlich wie ein Service Worker programmieren
+* Unterstüzung für JavaScript und WASM
+* Durch Compile-Schritt Unterstützung für TypeScript und Rust
+* Ebenfalls durch Compile-Schritt: CommonJS und ES Modules
+* Keine Node Bibliotheken, weil kein Node! Eher wie ein Worker: Web Worker, Service Worker
+* API lässt sich ähnlich wie ein Service Worker programmieren
+* Intelligenter Proxy als ein Use-Case
 
 ### Vorteile
 
@@ -282,10 +284,12 @@ git reset --hard && git checkout step-6
 ### Boilerplate
 
 * Man benötigt npm & Wrangler
-* wrangler.toml
+* `wrangler init duesseldorf --type=javascript`
+* wrangler.toml (zeigen)
 * index.js
 * package.json
-* publizieren per `wrangler publish`
+* Testen per `wrangler dev`
+* Publizieren per `wrangler publish`
 
 ```
 wrangler publish
@@ -319,7 +323,32 @@ git reset --hard && git checkout step-8 && wrangler publish
 
 ## 9. CSS Laden optimieren
 
-## 10. Fonts, Preloading & Scripte zusammenfassen
+## 10. CLS & Scripte zusammenfassen
+
+
+```
+Promise.all(
+  Array.from(document.querySelectorAll('script[src^="/typo3conf/ext"]'))
+    .filter(el =>
+      !el.src.includes('vis.') &&
+      !el.src.includes('moment.js') &&
+      !el.src.includes('clndr.js') &&
+      !el.src.includes('calendar.js')
+    )
+    .map(el =>
+      fetch(el.src)
+        .then(response => response.text())
+    )
+).then(contents => {
+  console.log(
+    contents
+      .join('\r\n')
+      .replace('lhd.calendar.init()','')
+      .replace('lhd.bxsliderHeaderteaser.init()','')
+  );
+});
+```
+
 
 ## 11. Finales Ergebnis:
 
