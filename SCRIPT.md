@@ -250,3 +250,6 @@ Promise.all(
 [Das Ergebnis für Webpagetest](https://webpagetest.org/video/compare.php?tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02,210207_DiS5_6744528b4ce18b5f672041e8404e6a0a)
 [Videovergleich](https://webpagetest.org/video/view.php?end=full&tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02%2C210207_DiS5_6744528b4ce18b5f672041e8404e6a0a&bg=000000&text=ffffff&loc=Frankfurt%2C+Germany+-+EC2+-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+3GFast)
 
+Abschließend will ich noch darauf hinweisen, dass die CloudFlare Worker sich auch als dauerhafte Schicht vor eine Webseite 
+ziehen lassen, was dann sehr praktisch ist, wenn man es mit einem eher "schwierigen" CMS zu tun hat, welches wenig Anpassungen
+in seinem HTML zulässt.
