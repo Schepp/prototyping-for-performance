@@ -45,7 +45,7 @@ Im Vorlauf des Talk zeige ich Euch 2 Arten, wie man an bestehenden Seiten herum-
 
 Außerdem zeige ich auch einige weitere, bei der Performance-Optmierung sehr hilfreich Chrome Devtools Werkzeuge.
 
-Alles, was wir machen, alle Tools und alle Link sind in [einem Script notiert](https://github.com/schepp/prototyping-for-performance/SCRIPT.md), das ich hinterher mit Euch teile.
+Alles, was wir machen, alle Tools und alle Link sind in [einem Script notiert](https://github.com/Schepp/prototyping-for-performance/blob/master/SCRIPT.md), das ich hinterher mit Euch teile.
 
 IHR MÜSST ALSO NICHTS NOTIEREN !!!
 
@@ -83,7 +83,7 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
   - Erkennntnis: Start Render beginnt, wenn CSS da ist
 * Devtools -> rechts oben auf ⁝ -> More Tools -> Coverage -> nach `css` filtern -> Seite neu laden -> `CSS` ist zu 90% ungenutzt
 * Wenn CSS kleiner wäre und schneller geladen, dann profitiert auch FCP
-* Wir wenden die Technik des ["Critical CSS"]https://web.dev/extract-critical-css/) an
+* Wir wenden die Technik des ["Critical CSS"](https://web.dev/extract-critical-css/) an
 * In die Console wechseln  
 * [Critical CSS Boomarklet](https://github.com/DirkPersky/criticalcss) benutzen
 * Kritisches CSS aus der Konsole kopieren und ins HTML per `<style>`-Element inlinen
@@ -118,11 +118,11 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 
 ### Boilerplate
 
-* Ordner [`worker/0-base`](https://github.com/schepp/prototyping-for-performance/worker/0-base) aufklappen
+* Ordner [`worker/0-base`](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/0-base) aufklappen
 * Minimale Bestandteile eines CloudFlare Workers:
-  - [wrangler.toml](https://github.com/schepp/prototyping-for-performance/worker/0-base/wrangler.toml) (zeigen)
-  - [package.json](https://github.com/schepp/prototyping-for-performance/worker/0-base/package.json) (zeigen)
-  - [index.js](https://github.com/schepp/prototyping-for-performance/worker/0-base/index.js) (zeigen)
+  - [wrangler.toml](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/0-base/wrangler.toml) (zeigen)
+  - [package.json](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/0-base/package.json) (zeigen)
+  - [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/0-base/index.js) (zeigen)
 * Generieren dieser Dateien auch möglich per `wrangler generate --type webpack my-worker` (das `my-worker` kann frei gewählt werden)
 * In die `wrangler.toml` muss die Account ID eingetragen werden, zu finden im [CloudFlare Dashboard](https://dash.cloudflare.com/) unter "Worker" (rechts)
 * Terminal öffnen und ebenfalls in den Ordner `worker/0-base` wechseln
@@ -143,8 +143,8 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 ## CloudFlare's HTMLRewriter
 
 * [HTMLRewriter](https://blog.cloudflare.com/introducing-htmlrewriter/)
-* Ordner [`worker/1-fcp`](https://github.com/schepp/prototyping-for-performance/worker/1-fcp) aufklappen
-* [index.js](https://github.com/schepp/prototyping-for-performance/worker/1-fcp/index.js) (zeigen)
+* Ordner [`worker/1-fcp`](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/1-fcp) aufklappen
+* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/1-fcp/index.js) (zeigen)
 * [Schreibt HTML Streams on-the-fly um](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter)
 * Durchforstet das HTML per [CSS-Selektoren](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter#selectors) (allerdings nicht alle Selektoren von CSS nutzbar)
 * Das Umschreiben passiert in einer Klasse, in deren `element()`- Methode
@@ -191,8 +191,8 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 
 ## Layout Shift Reparatur im CloudFlare HTMLRewriter
 
-* Ordner [`worker/2-cls`](https://github.com/schepp/prototyping-for-performance/worker/2-cls) aufklappen
-* [index.js](https://github.com/schepp/prototyping-for-performance/worker/2-cls/index.js) (zeigen)
+* Ordner [`worker/2-cls`](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/2-cls) aufklappen
+* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/2-cls/index.js) (zeigen)
 * Minimalen Änderungen zeigen 
 * Im Terminal in den Ordner `worker/2-cls` wechseln
 * Publizieren per `wrangler publish`
@@ -232,8 +232,8 @@ Promise.all(
 
 ## Scripte zusammenfassen im CloudFlare HTMLRewriter
 
-* Ordner [`worker/3-tbt`](https://github.com/schepp/prototyping-for-performance/worker/3-tbt) aufklappen
-* [index.js](https://github.com/schepp/prototyping-for-performance/worker/3-tbt/index.js) (zeigen)
+* Ordner [`worker/3-tbt`](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/3-tbt) aufklappen
+* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/3-tbt/index.js) (zeigen)
 * Minimalen Änderungen zeigen
 * Im Terminal in den Ordner `worker/3-tbt` wechseln
 * Publizieren per `wrangler publish`
