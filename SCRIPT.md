@@ -30,12 +30,24 @@
 
 ## Intro
 
-Manchmal möchte man seine Ideen gerne prototypen, ohne an den eigentlichen Code ranzugehen:
+Manchmal möchte man seine Ideen gerne prototypen, ohne dafür an den eigentlichen Code ranzugehen:
 
 * weil man im Rahmen einer Kundenakquise Schätzungen über zukünftige Performance-Zugewinne machen möchte,
 * weil man noch keinen Zugang zum Server hat, man aber dennoch schon losforschen möchte,
-* weil der Kunde über kein separates Testsystem verfügt,
+* weil der Kunde über kein separates oder nur ein unzureichendes Testsystem verfügt,
+* weil die Deployment-Zyklen für schnelles Iterieren zu langsam sind
 * und manchmal auch, weil es schlicht und ergreifend Spaß macht. 
+
+Im Vorlauf des Talk zeige ich Euch 2 Arten, wie man an bestehenden Seiten herum-prototypen kann:
+
+* Einmal direkt in den Chrome Devtools
+* Einmal in der Cloud mit Hilfe der sogenannten "CloudFlare Workers"
+
+Außerdem zeige ich auch einige weitere, bei der Performance-Optmierung sehr hilfreich Chrome Devtools Werkzeuge.
+
+Alles, was wir machen, alle Tools und alle Link sind in einem Script notiert, das ich hinterher mit Euch teile.
+
+IHR MÜSST ALSO NICHTS NOTIEREN !!!
 
 ## Erster Eindruck der Webseite + Analyse
 
