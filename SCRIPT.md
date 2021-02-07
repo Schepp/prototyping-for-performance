@@ -12,7 +12,7 @@
 * Wrangler installieren
   - `npm install -g @cloudflare/wrangler`
   - Wrangler per `wrangler login` konfigurieren
-* PHPStorm
+* IDE installieren
 
 ### Vor jedem Talk zurücksetzen:
 
