@@ -18,7 +18,8 @@
 
 * IDE -> alte Overrides löschen
 * IDE -> alle Tabs schließen
-* IDE -> alle `worker`-Ordner zuklappen
+* IDE -> `overrides`-Ordner zuklappen
+* IDE -> `worker`-Ordner zuklappen
 * IDE -> Terminal schließen 
 * Devtools -> Sources -> Overrides -> entfernen
 * Devtools -> Sources -> Close all
