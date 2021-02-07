@@ -30,15 +30,19 @@
 
 ## Intro
 
-* Manchmal möchte man seine Ideen trotzdem gerne prototypen
-* Denn grau ist alle Theorie
-* 
+Manchmal möchte man seine Ideen gerne prototypen, ohne an den eigentlichen Code ranzugehen:
+
+* weil man im Rahmen einer Kundenakquise Schätzungen über zukünftige Performance-Zugewinne machen möchte,
+* weil man noch keinen Zugang zum Server hat, man aber dennoch schon losforschen möchte,
+* weil der Kunde über kein separates Testsystem verfügt,
+* und manchmal auch, weil es schlicht und ergreifend Spaß macht. 
 
 ## Erster Eindruck der Webseite + Analyse
 
 * [https://www.duesseldorf.de/](https://www.duesseldorf.de/)
 * Devtools -> Lighthouse-Test durchführen -> 25-40
 * Ein tolles Werkzeug: [Webpagetest](https://webpagetest.org) 
+  - "Test Location": "Frankfurt"
   - "Advanced Settings" ausklappen
   - Tab "Test Settings" -> "Connection" auf "3G Fast"
   - Tab "Chromium" -> "Capture Lighthouse Report" anhaken + "Emulate Mobile Browser" auf "Motorola G"
@@ -225,5 +229,12 @@ Promise.all(
 
 ## Finales Ergebnis:
 
-[Webpagetest](https://www.webpagetest.org/video/compare.php?tests=210129_DiJK_6aa13f760d493212ffe51144fdc92a11%2C210129_DiPM_be7b56a98c82a7c63194d25b39376f19&thumbSize=200&ival=500&end=full)
+[Webpagetest Bulk-Testing](https://webpagetest.org/?bulk=1) durchführen für...
+[Pagespeed.compare](https://pagespeed.compare/) durchführen für... 
+
+* https://www.duesseldorf.de/ 
+* https://duesseldorf.schepp.workers.dev/
+
+[Das Ergebnis für Webpagetest](https://webpagetest.org/video/compare.php?tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02,210207_DiS5_6744528b4ce18b5f672041e8404e6a0a)
+[Videovergleich](https://webpagetest.org/video/view.php?end=full&tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02%2C210207_DiS5_6744528b4ce18b5f672041e8404e6a0a&bg=000000&text=ffffff&loc=Frankfurt%2C+Germany+-+EC2+-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+3GFast)
 

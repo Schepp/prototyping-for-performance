@@ -48,7 +48,7 @@ async function handleRequest(request) {
   const response = await fetch(proxiedRequest);
 
   if (request.url.includes('scripts.js')) {
-    const originUrl = 'https://schepp.github.io/worker/3-tbt/scripts.js';
+    const originUrl = 'https://schepp.github.io/prototyping-for-performance/worker/3-tbt/scripts.js';
     const proxiedRequest = new Request(originUrl, request);
     return await fetch(proxiedRequest);
   }
