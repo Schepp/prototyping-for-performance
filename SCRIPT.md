@@ -45,7 +45,7 @@ Im Vorlauf des Talk zeige ich Euch 2 Arten, wie man an bestehenden Seiten herum-
 
 Außerdem zeige ich auch einige weitere, bei der Performance-Optmierung sehr hilfreich Chrome Devtools Werkzeuge.
 
-Alles, was wir machen, alle Tools und alle Link sind in einem Script notiert, das ich hinterher mit Euch teile.
+Alles, was wir machen, alle Tools und alle Link sind in [einem Script notiert](https://github.com/schepp/prototyping-for-performance/SCRIPT.md), das ich hinterher mit Euch teile.
 
 IHR MÜSST ALSO NICHTS NOTIEREN !!!
 
