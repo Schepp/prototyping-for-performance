@@ -16,15 +16,17 @@
 
 ### Vor jedem Talk zurücksetzen:
 
-* Terminal der IDE schließen 
-* Devtools -> Device Toolbar -> Device Emulation abschalten
-* Devtools -> Sources -> Overrides -> aktivieren und den "overrides" Folder wählen
+* IDE -> alte Overrides löschen
+* IDE -> alle Tabs schließen
+* IDE -> alle `worker`-Ordner zuklappen
+* IDE -> Terminal schließen 
 * Devtools -> Sources -> Overrides -> entfernen
 * Devtools -> Sources -> Close all
 * Devtools -> Performance -> Panel leeren
+* Devtools -> Lighthouse -> Panel leeren
 * Devtools -> Network Request Blocking -> leeren
+* Devtools -> alle Tab unten schließen
 * Devtools -> Network -> Einstellungsrädchen -> "use large request rows" ausstellen
-* Browser-Download in Override-Verzeichnis durchführen
 * Auf [www.duesseldorf.de](https://www.duesseldorf.de) gehen und Slider abschalten
 * Initialen Worker per `wrangler publish` publizieren
 
