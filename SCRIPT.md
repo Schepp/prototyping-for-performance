@@ -258,3 +258,5 @@ Promise.all(
 Abschließend will ich noch darauf hinweisen, dass die CloudFlare Worker sich auch als dauerhafte Schicht vor eine Webseite 
 ziehen lassen, was dann sehr praktisch ist, wenn man es mit einem eher "schwierigen" CMS zu tun hat, welches wenig Anpassungen
 in seinem HTML zulässt.
+
+Vielen Dank für Eure Aufmerksamkeit!
