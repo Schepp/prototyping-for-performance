@@ -225,6 +225,8 @@ Promise.all(
 });
 ```
 
+(Achtung beim Rauskopieren und Einfügen, dass in dem `.join()` das `r` und das `n` beide nur mit jeweils einem Backslash escaped sind)
+
 * Holt sich die Inhalte aller JavaScripts, außer der `vis.min.js`
 * Ergebnis in eine `scripts.js` speichern
 * Alle bisherigen Scripte entfernen
