@@ -8,355 +8,222 @@
 * Andere Bookmarks aus diesem Script im Browser ablegen
 * SSH
 * Git
-* Node 14 per nvm
-* Wrangler
+* Node installieren
+* Wrangler installieren
   - `npm install -g @cloudflare/wrangler`
   - Wrangler per `wrangler login` konfigurieren
 * PHPStorm
 
 ### Vor jedem Talk zurücksetzen:
 
-* PHPStorm Tabs oben anordnen
-* Devtools -> Device Emulation abschalten
+* Terminal der IDE schließen 
+* Devtools -> Device Toolbar -> Device Emulation abschalten
 * Devtools -> Sources -> Overrides -> aktivieren und den "overrides" Folder wählen
 * Devtools -> Sources -> Overrides -> entfernen
 * Devtools -> Sources -> Close all
 * Devtools -> Performance -> Panel leeren
 * Devtools -> Network Request Blocking -> leeren
+* Devtools -> Network -> Einstellungsrädchen -> "use large request rows" ausstellen
 * Browser-Download in Override-Verzeichnis durchführen
-* Auf duesseldorf.de gehen und Slider abschalten
+* Auf [www.duesseldorf.de](https://www.duesseldorf.de) gehen und Slider abschalten
 * Initialen Worker per `wrangler publish` publizieren
 
 ## Intro
 
 * Manchmal möchte man seine Ideen trotzdem gerne prototypen
 * Denn grau ist alle Theorie
+* 
 
-## 1. Erster Eindruck der Webseite + Analyse
+## Erster Eindruck der Webseite + Analyse
 
 * [https://www.duesseldorf.de/](https://www.duesseldorf.de/)
-* Auf Motorola Moto G4 stellen + "Mid-tier mobile"
-* Neu Laden
-* Devtools -> Lighthouse-Test durchführen -> 30-40
-* [Pagespeed Insights](https://developers.google.com/speed/pagespeed/insights/?url=https%3A%2F%2Fwww.duesseldorf.de%2F)
+* Devtools -> Lighthouse-Test durchführen -> 25-40
+* Ein tolles Werkzeug: [Webpagetest](https://webpagetest.org) 
+  - "Advanced Settings" ausklappen
+  - Tab "Test Settings" -> "Connection" auf "3G Fast"
+  - Tab "Chromium" -> "Capture Lighthouse Report" anhaken + "Emulate Mobile Browser" auf "Motorola G"
 * [Webpagetest Ergebnis](https://webpagetest.org/result/210123_DiJ7_de61d49178f82fafce917d1cf98797ed/)
 * Erkenntnisse:
-  - Kein HTTP/2
-  - Viele JavaScript Ressourcen
-  - Riesen CSS
-* Video angucken
-* Performance Profiler laufen lassen -> Screenshots + Web Core Vitals aktivieren
-  - FCP (First Contentful Paint) beginnt wenn CSS da ist
-  - Viele LS (Layout Shifts), wenn Bilder geladen werden
-  - Massive LS und LCP (Largest Contentful Paint) bei L (Load)
-  - Long Tasks vorwiegend bei DCL (DOM Content Loaded) und L (Load)
+  - Nur HTTP/1.1, kein HTTP/2, erkennbar an mehreren TCP-Connects zu www.duesseldorf.de
+  - Riesen CSS (grün)
+  - Viele JavaScript Ressourcen (weiter unten, gelb)
+  - Katastrophales Rating oben für "Compress Transfer", nämlich "F"
+* Devtools -> Network -> Einstellungsrädchen -> "use large request rows" anstellen
+  - Keine Dateikompression
 
-## 2. CSS Laden optimieren
+## Chrome Devtools Source Overrides vorstellen
 
-* Chrome Devtools Source Overrides vorstellen
 * Devtools -> Sources -> Overrides -> "+ Select folder for overrides"
-* Ordner "overrides" auswählen
-* Requester bestätigen
-* Devtools -> Sources -> Page -> HTML mit alert editieren -> Strg + S
-* Seite laden und zeigen, dass Sie noch geht
-* alert wieder entfernen
+* Ordner "overrides" als Zielordner auswählen
+* Sicherheitsnachfrage bestätigen
+* Devtools -> Sources -> Page -> rechter Mausklick -> "Save for Overrides" 
+* In das HTML ein `alert()` editieren -> Speichern per `Strg` + `S`
+* Seite neu laden und zeigen, dass jetzt ein Alert erscheint
+* Das `alert()` wieder entfernen
+  
+## First Contentful Paint (FCP) angehen
+
+* [Webpagetest Ergebnis](https://webpagetest.org/result/210123_DiJ7_de61d49178f82fafce917d1cf98797ed/)
+  - Erkennntnis: Start Render beginnt, wenn CSS da ist
+* Devtools -> rechts oben auf ⁝ -> More Tools -> Coverage -> nach `css` filtern -> Seite neu laden -> `CSS` ist zu 90% ungenutzt
+* Wenn CSS kleiner wäre und schneller geladen, dann profitiert auch FCP
+* Wir wenden die Technik des ["Critical CSS"]https://web.dev/extract-critical-css/) an
+* In die Console wechseln  
 * [Critical CSS Boomarklet](https://github.com/DirkPersky/criticalcss) benutzen
-* Kritisches CSS ins HTML inlinen
-* Bisheriges CSS lazy ladend machen
-* Das kleine JavaScript inlinen, weil es blockierend eingebunden ist
+* Kritisches CSS aus der Konsole kopieren und ins HTML per `<style>`-Element inlinen
+* Bisheriges CSS lazy ladend machen, und zwar wie von der [Filament Group](https://www.filamentgroup.com/lab/load-css-simpler/) beschrieben
+* Bisheriges CSS per [`<link rel="preload">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content) preloaden
+* Neuer Lighthouse Test -> FCP und LCP gehen runter, Gesamtscore geht hoch
 
-```
-git reset --hard && git checkout step-2
-```
+## Nachteil der Chrome Devtools
 
-* Neuer Lighthouse Test -> FCP geht runter
+* Optimierungen bestehen nur für die aktuelle bearbeitete Seite.  
+  Klickt man sich zur nächsten Seite weiter, verliert man die HTML-Optimierungen.
+* Man kann seine Optimierungen nur herzeigen, indem man den eigenen Bildschirm teilt.
+* Man kann keine externen Tools, z.B. Webpagetest zur Messung heranziehen
+* Und schließlich: Lokal hat man keine Datei-Kompression
 
-### 3. Layout Shift (LS) des Sliders reparieren
+## Enter CloudFlare Workers
 
-* Devtools -> Console Drawer -> Rendering -> "Layout Shift Regions" aktivieren
-* Nur erstes Bild anzeigen, bis der Slider initialisiert ist:
+* [https://workers.cloudflare.com/](https://workers.cloudflare.com/)
+* Eine Art "Service Worker", aber nicht im Browser, sondern in der Cloud
+* Wie ein Service Worker nichts anderes als ein intelligenter Proxy
+* API lässt auch ähnlich [wie ein Service Worker](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent) programmieren (Verweis auf vorherigen Vortrag)
+* PLUS: Man kann Inhalte "on-the-fly" umschreiben (dazu gleich mehr)
 
-```
-  .lhd-carousel-inner .slider_header_start ~ .slider_header_start {
-    display: none;
-  }
-  .bx-wrapper .slider_header_start ~ .slider_header_start {
-    display: block;
-  }
-```
+### Was brauche ich?
 
-* Slider-Höhe automatisch:
+* Einen CloudFlare Account
+* Das CloudFlare Workers Paket für $5 pro Monat
+* Node
+* Wrangler
+  - `npm install -g @cloudflare/wrangler`
+  - Wrangler per `wrangler login` konfigurieren
 
-```
-  #stage-innerwrap#stage-innerwrap {
-    height: auto;
-  }
-```
+### Boilerplate
 
-* Bild-Dimensionen einstellen:
+* Ordner [`worker/0-base`](https://github.com/schepp/prototyping-for-performance/worker/0-base) aufklappen
+* Minimale Bestandteile eines CloudFlare Workers:
+  - [wrangler.toml](https://github.com/schepp/prototyping-for-performance/worker/0-base/wrangler.toml) (zeigen)
+  - [package.json](https://github.com/schepp/prototyping-for-performance/worker/0-base/package.json) (zeigen)
+  - [index.js](https://github.com/schepp/prototyping-for-performance/worker/0-base/index.js) (zeigen)
+* Generieren dieser Dateien auch möglich per `wrangler generate --type webpack my-worker` (das `my-worker` kann frei gewählt werden)
+* In die `wrangler.toml` muss die Account ID eingetragen werden, zu finden im [CloudFlare Dashboard](https://dash.cloudflare.com/) unter "Worker" (rechts)
+* Terminal öffnen und ebenfalls in den Ordner `worker/0-base` wechseln
+* Lokales Entwickeln und Testen per `wrangler dev` (mit Log)
+* [http://127.0.0.1:8787/](http://127.0.0.1:8787/) öffnen
+* Publizieren per `wrangler publish`
+* [https://duesseldorf.schepp.workers.dev/](https://duesseldorf.schepp.workers.dev/) öffnen
 
-```
-  .slider-item-img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 98 / 46;
-    object-fit: cover;
-  }
-```
-
-* Blauer Corona-Header reparieren:
-
-```
-  .corona-xss-header {
-    background: #009fdf;
-    font-family: "DinProBold",sans-serif;
-    font-weight: normal;
-    padding: 15px;
-    text-align: left;
-  }
-
-  @media (max-width: 767px) {
-    .visible-xs {
-      display: block !important;
-    }
-  }
-```
-
-```
-git reset --hard && git checkout step-3
-```
-
-* Neuer Lighthouse Test -> CLS geht runter
-
-## 4. Schriften optimieren
-
-* Devtools -> Network -> fonts -> 2 Schriften
-* URL zu Schriftkopieren -> TTF herunterladen
-* URL zu Schriftkopieren -> TTF herunterladen
-* Zu [Font-Squirrel](https://www.fontsquirrel.com/tools/webfont-generator) gehen und die Schriften optimieren und im Overrides-Verzeichnis speichern
-* Die Woff2 entpacken und umbenennen
-* Styles lokal wegspeichern
-* `@font-face`-Deklaration in der styles.css suchen und ausschneiden
-* In die Index einfügen
-* Nur das CSS markieren und mit Strg + Alt + L formatieren
-* WOFF2 hinzufügen
-* `font-display: swap` und @font-face descriptors hinzufügen:
-
-```
-font-display: swap;
-ascent-override: 80%;
-descent-override: 20%;
-line-gap-override: 0%;
-```
-
-* `<link rel="preload">` hinzufügen:
-
-```
-<link rel="preload" href="dinpro-bold-webfont.woff2" as="font" crossorigin="anonymous">
-<link rel="preload" href="dinpro-regular-webfont.woff2" as="font" crossorigin="anonymous">
-```
-
-```
-git reset --hard && git checkout step-4
-```
-
-* Neuer Lighthouse Test -> bringt in den Messwerten nicht viel
-
-## 5. Bilder optimieren
-
-* Bilder im Devtools Element Inspector zeigen -> `kein Lazy Loading
-* Devtools -> Network -> Img -> `.jpg` -> viele Bilder
-* Bei allen Bildern ein `loading="lazy" decoding="async"` dranhängen (extra Thread).
-* Devtools -> Network -> Img -> `.jpg` -> nun wenige Bilder
-* `window.onload` wird schneller ausgeführt
-
-### Bilder Preload
-
-* Bilder im Devtools Element Inspector zeigen -> `<picture>` mit `srcset`
-* Spezielles [Preload für responsive Bilder](https://html.spec.whatwg.org/multipage/semantics.html#attr-link-imagesrcset) zeigen
-* `<link rel="preload">` für Rathaus-Bild hinzufügen für Largest Contentful Paint LCP:
-
-```
-  <link rel=preload" as="image"
-    imagesrcset="/fileadmin/_processed_/7/e/csm_start_rathaus_2880_bf9ed9334c.jpg, /fileadmin/_processed_/7/e/csm_start_rathaus_2880_f20abfa21d.jpg 2x"
-    media="(max-width: 460px)">
-  <link rel="preload" as="image"
-    imagesrcset="/fileadmin/_processed_/7/e/csm_start_rathaus_2880_000e0cf0a0.jpg, /fileadmin/_processed_/7/e/csm_start_rathaus_2880_557e78d4c7.jpg2x"
-    media="(min-width: 461px) and (max-width: 960px)">
-  <link rel="preload" as="image"
-    imagesrcset="/fileadmin/_processed_/7/e/csm_start_rathaus_2880_87b34c34f9.jpg, /fileadmin/_processed_/7/e/csm_start_rathaus_2880_30471c0f4f.jpg 2x"
-    media="(min-width: 961px)">
-```
-
-* `<link rel="preload">` für Coronavirus-Bild hinzufügen für Largest Contentful Paint LCP:
-
-```
-  <link rel="preload" as="image"
-    imagesrcset="/fileadmin/_processed_/8/8/csm_teaser_web_f8c4fc92dc.jpg, /fileadmin/_processed_/8/8/csm_teaser_web_9d2cdd6d2d.jpg 2x"
-    media="(max-width: 959px)">
-  <link rel="preload" as="image"
-    imagesrcset="/fileadmin/_processed_/8/8/csm_teaser_web_429a624e73.jpg, /fileadmin/_processed_/8/8/csm_teaser_web_4fa46a4a94.jpg 2x"
-    media="(min-width: 960px)">
-```
-
-### Bildformate optimieren
-
-* Bilder mit [Squoosh](https://squoosh.app) optimieren
-* Bilder sehen sogar besser aus
-* Reveal in Source Panel
-* Right Click: "Save for Overrides"
-* Drag & Drop
-
-```
-git reset --hard && git checkout step-5
-```
-
-* Neuer Lighthouse Test -> Largest Contentful Paint (LCP) macht einen riesen Sprung
-
-## 6. Scripte
-
-* Devtools -> Performance Profile -> frisst nicht viel
-* Devtools -> Network -> Js -> `moment.js` und `vis.js` sind riesig
-* Zum Testen `vis.js`-URL blockieren -> kein Fehler
-* Zum Testen `moment.js`-URL blockieren -> Fehler bei `clndr.js` und `calendar.js`
-* Fehler bei `lhd.calendar.init()`
-* Beide werden initial gar nicht benötigt
-* Script-Sammler in die Console packen und erklären, was er tut:
-
-```
-Promise.all(
-  Array.from(document.querySelectorAll('script[src^="/typo3conf/ext"]'))
-    .filter(el =>
-      !el.src.includes('vis.') &&
-      !el.src.includes('moment.js') &&
-      !el.src.includes('clndr.js') &&
-      !el.src.includes('calendar.js')
-    )
-    .map(el =>
-      fetch(el.src)
-        .then(response => response.text())
-    )
-).then(contents => {
-  console.log(
-    contents
-      .join('\r\n')
-      .replace('lhd.calendar.init()','')
-      .replace('lhd.bxsliderHeaderteaser.init()','')
-  );
-});
-```
-
-* Erklären dass er die Initialisierung für Slider und Kalender entfernt
-* Mit dem Resultat zu [https://jscompress.com/](https://jscompress.com/) gehen
-* In eine `scripts.js` speichern
-* Alle bisherigen Scripte entfernen
-* Nach `<!--TYPO3SEARCH_end-->` suchen
-* Darüber `<script src="scripts.js" async onload="lhd.bxsliderHeaderteaser.init()"></script>` einfügen
-* `async` bedeutet JS-Parsing in separatem CPU-Thread
-* `async` bedeutet, dass das `onload` schneller zum Zuge kommt -> Slider
-* An dem `window.onload` ändert sich nichts, außer dass dort kein Slider und Kalender mehr initialisiert werden
-
-```
-git reset --hard && git checkout step-6
-```
-
-* Neuer Lighthouse Test -> Total Blocking Time (TBT) macht einen riesen Sprung, TTI auch
-
-## 6b. CloudFlare Workers
-
-* [https://workers.cloudflare.com/](https://workers.cloudflare.com/) öffnen
-* Im Prinzip Serverless Functions, aber ohne "Cold Starts"
-* Unterstüzung für JavaScript und WASM
-* Durch Compile-Schritt Unterstützung für TypeScript und Rust
-* Ebenfalls durch Compile-Schritt: CommonJS und ES Modules
-* Keine Node Bibliotheken, weil kein Node! Eher wie ein Worker: Web Worker, Service Worker
-* API lässt sich ähnlich wie ein Service Worker programmieren
-* Intelligenter Proxy als ein Use-Case
-
-### Vorteile
+**Vorteile:**
 
 * Extern vorzeigbar
 * Extern Messbar
 * Seite kann gesurft werden
-* HTTP/2 von Haus aus
-* Brotli-Kompression von Haus aus (CSS: 477KB -> 59KB, JS: 1.1MB -> 425KB)
+* Von Haus aus [HTTP/2](https://schepp.github.io/HTTP-2/) 
+* Von Haus aus [Brotli-Kompression](https://de.wikipedia.org/wiki/Brotli) (CSS: 477KB -> 59KB, JS: 1.1MB -> 425KB)
+* Lighthouse Test -> HTTP/2 und Brotli-Kompression bringen schon für sich alleine viel!
 
-### Boilerplate
+## CloudFlare's HTMLRewriter
 
-* Man benötigt npm & Wrangler
-* `wrangler init duesseldorf --type=javascript`
-* wrangler.toml (zeigen)
-* index.js
-* package.json
-* Testen per `wrangler dev`
+* [HTMLRewriter](https://blog.cloudflare.com/introducing-htmlrewriter/)
+* Ordner [`worker/1-fcp`](https://github.com/schepp/prototyping-for-performance/worker/1-fcp) aufklappen
+* [index.js](https://github.com/schepp/prototyping-for-performance/worker/1-fcp/index.js) (zeigen)
+* [Schreibt HTML Streams on-the-fly um](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter)
+* Durchforstet das HTML per [CSS-Selektoren](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter#selectors) (allerdings nicht alle Selektoren von CSS nutzbar)
+* Das Umschreiben passiert in einer Klasse, in deren `element()`- Methode
+* Elemente können darin ähnlich wie das DOM manipuliert werden (z.B. `el.setAttribute()`)
+* Im Terminal in den Ordner `worker/1-fcp` wechseln
 * Publizieren per `wrangler publish`
+* Geänderten Quelltext per `view-source://` zeigen
+* Neuer Lighthouse Test -> FCP und LCP gehen runter, Gesamtscore geht hoch
+
+## Chrome Devtools Overrides: Layout Shift (LS) des Sliders reparieren
+
+* Devtools -> rechts oben auf ⁝ -> More Tools -> Rendering -> "Layout Shift Regions" aktivieren
+* Nur erstes Bild anzeigen, bis der Slider initialisiert ist:
 
 ```
-wrangler publish
+.slider_header_start ~ .slider_header_start {
+  display: none;
+}
+.bx-wrapper .slider_header_start ~ .slider_header_start {
+  display: block;
+}
 ```
 
-* Neuer Lighthouse Test -> Alles ziemlich gut, ohne Code-Anpassungen
-
-## 7. HTML Rewriter
+* Slider-Höhe korrigieren:
 
 ```
-git reset --hard && git checkout step-7 && wrangler publish
+#stage-innerwrap {
+  height: auto !important;
+}
 ```
 
-* Schreibt den HTML Stream on-the-fly um
-* Arbeitet mit CSS-Selektoren (nicht ganz so mächtig)
-* Umwandlung in einer Klasse mit der `element()`- Methode
-* Elemente können darin ähnlich wie das DOM manipuliert werden
-* `<img>`-Element mit `loading="lazy"` und `decoding="async"` ausgestattet
-
-## 8. Cloudinary
+* Bild-Dimensionen voreinstellen:
 
 ```
-git reset --hard && git checkout step-8 && wrangler publish
+.slider-item-img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 98 / 46;
+  object-fit: cover;
+}
 ```
 
-* JPGs werden umgelenkt zu Cloudinary
-* [Cloudinary](https://cloudinary.com/documentation/image_optimization) öffnen
-* [Cloudinary Pricing](https://cloudinary.com/pricing) zeigen
-* [WebP-Beispiel](https://res.cloudinary.com/schepp/image/fetch/w_auto/f_auto/q_auto:low/https://www.duesseldorf.de/fileadmin/_processed_/7/e/csm_start_rathaus_2880_f20abfa21d.jpg) zeigen
-* [AVIF-Beta-Beispiel](https://res.cloudinary.com/schepp/image/fetch/w_auto/f_avif/q_auto:low/https://www.duesseldorf.de/fileadmin/_processed_/7/e/csm_start_rathaus_2880_f20abfa21d.jpg) zeigen
+* Neuer Lighthouse Test -> CLS geht runter
 
-## 9. CSS Laden optimieren
+## Layout Shift Reparatur im CloudFlare HTMLRewriter
 
-## 10. CLS & Scripte zusammenfassen
+* Ordner [`worker/2-cls`](https://github.com/schepp/prototyping-for-performance/worker/2-cls) aufklappen
+* [index.js](https://github.com/schepp/prototyping-for-performance/worker/2-cls/index.js) (zeigen)
+* Minimalen Änderungen zeigen 
+* Im Terminal in den Ordner `worker/2-cls` wechseln
+* Publizieren per `wrangler publish`
+* Neuer Lighthouse Test -> FCP und LCP gehen runter, Gesamtscore geht hoch
 
+## Chrome Devtools Overrides: Scripte optimieren
+
+* Devtools -> Network -> Js -> `vis.js` und `moment.js` sind riesig
+* Devtools -> rechts oben auf ⁝ -> More Tools -> Coverage -> nach `js` filtern -> Seite neu laden -> `vis.js` ist zu 85% ungenutzt
+* Devtools -> rechts oben auf ⁝ -> More Tools -> Network Request Blocking -> `vis.js` blockieren -> kein Fehler
+* Zum Testen `moment.js`-URL blockieren -> Fehler bei `clndr.js` und `calendar.js`
+* Script-Sammler in die Console packen:
 
 ```
 Promise.all(
   Array.from(document.querySelectorAll('script[src^="/typo3conf/ext"]'))
     .filter(el =>
-      !el.src.includes('vis.') &&
-      !el.src.includes('moment.js') &&
-      !el.src.includes('clndr.js') &&
-      !el.src.includes('calendar.js')
+      !el.src.includes('vis.min')
     )
     .map(el =>
-      fetch(el.src)
-        .then(response => response.text())
+      fetch(el.src).then(response => response.text())
     )
 ).then(contents => {
   console.log(
-    contents
-      .join('\r\n')
-      .replace('lhd.calendar.init()','')
-      .replace('lhd.bxsliderHeaderteaser.init()','')
+    contents.join('\r\n')
   );
 });
 ```
 
+* Holt sich die Inhalte aller JavaScripts, außer der `vis.min.js`
+* Ergebnis in eine `scripts.js` speichern
+* Alle bisherigen Scripte entfernen
+* Stattdessen `scripts.js` mit `defer`einbinden
+  - `defer` -> JavaScript kann in separatem CPU-Thread geparsed werden
 
-## 11. Finales Ergebnis:
+* Neuer Lighthouse Test -> Total Blocking Time (TBT) macht einen riesen Sprung, TTI auch
+
+## Scripte zusammenfassen im CloudFlare HTMLRewriter
+
+* Ordner [`worker/3-tbt`](https://github.com/schepp/prototyping-for-performance/worker/3-tbt) aufklappen
+* [index.js](https://github.com/schepp/prototyping-for-performance/worker/3-tbt/index.js) (zeigen)
+* Minimalen Änderungen zeigen
+* Im Terminal in den Ordner `worker/3-tbt` wechseln
+* Publizieren per `wrangler publish`
+* Neuer Lighthouse Test -> TBT geht runter, Gesamtscore geht hoch
+
+## Finales Ergebnis:
 
 [Webpagetest](https://www.webpagetest.org/video/compare.php?tests=210129_DiJK_6aa13f760d493212ffe51144fdc92a11%2C210129_DiPM_be7b56a98c82a7c63194d25b39376f19&thumbSize=200&ival=500&end=full)
-
-[Video](https://www.webpagetest.org/video/view.php?end=full&tests=210129_DiJK_6aa13f760d493212ffe51144fdc92a11%2C210129_DiPM_be7b56a98c82a7c63194d25b39376f19&bg=000000&text=ffffff&loc=Frankfurt%2C+Germany+-+EC2+-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+3GFast)
-
-## Addendum
-
-Dateien liegen alle auf [schepp.github.io/prototyping-for-performance/assets/](https://schepp.github.io/prototyping-for-performance/assets)
 

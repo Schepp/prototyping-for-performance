@@ -1,5 +1,5 @@
 name = "duesseldorf"
-type = "javascript"
+type = "webpack"
 account_id = "0d8df97501891ea7ef4388b9a61dcdfb"
 workers_dev = true
 route = ""
