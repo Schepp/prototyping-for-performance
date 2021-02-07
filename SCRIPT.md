@@ -64,8 +64,8 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
   - Riesen CSS (grün)
   - Viele JavaScript Ressourcen (weiter unten, gelb)
   - Katastrophales Rating oben für "Compress Transfer", nämlich "F"
-* Devtools -> Network -> Einstellungsrädchen -> "use large request rows" anstellen
-  - Keine Dateikompression
+* Devtools -> Network -> Einstellungsrädchen -> "use large request rows" anhaken
+  - Erkenntnis: Keine Dateikompression
 
 ## Chrome Devtools Source Overrides vorstellen
 
