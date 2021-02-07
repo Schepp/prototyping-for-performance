@@ -207,6 +207,7 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 * Devtools -> rechts oben auf ⁝ -> More Tools -> Coverage -> nach `js` filtern -> Seite neu laden -> `vis.js` ist zu 85% ungenutzt
 * Devtools -> rechts oben auf ⁝ -> More Tools -> Network Request Blocking -> `vis.js` blockieren -> kein Fehler
 * Zum Testen `moment.js`-URL blockieren -> Fehler bei `clndr.js` und `calendar.js`
+* Beide Blockaden wieder entfernen
 * Script-Sammler in die Console packen:
 
 ```
