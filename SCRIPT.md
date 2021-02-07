@@ -144,7 +144,7 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 
 * [HTMLRewriter](https://blog.cloudflare.com/introducing-htmlrewriter/)
 * Ordner [`worker/1-fcp`](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/1-fcp) aufklappen
-* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/1-fcp/index.js) (zeigen)
+* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/1-fcp/index.js) zeigen
 * [Schreibt HTML Streams on-the-fly um](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter)
 * Durchforstet das HTML per [CSS-Selektoren](https://developers.cloudflare.com/workers/runtime-apis/html-rewriter#selectors) (allerdings nicht alle Selektoren von CSS nutzbar)
 * Das Umschreiben passiert in einer Klasse, in deren `element()`- Methode
@@ -192,7 +192,7 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 ## Layout Shift Reparatur im CloudFlare HTMLRewriter
 
 * Ordner [`worker/2-cls`](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/2-cls) aufklappen
-* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/2-cls/index.js) (zeigen)
+* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/2-cls/index.js) zeigen
 * Minimalen Änderungen zeigen 
 * Im Terminal in den Ordner `worker/2-cls` wechseln
 * Publizieren per `wrangler publish`
@@ -233,7 +233,7 @@ Promise.all(
 ## Scripte zusammenfassen im CloudFlare HTMLRewriter
 
 * Ordner [`worker/3-tbt`](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/3-tbt) aufklappen
-* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/3-tbt/index.js) (zeigen)
+* [index.js](https://github.com/Schepp/prototyping-for-performance/blob/master/worker/3-tbt/index.js) zeigen
 * Minimalen Änderungen zeigen
 * Im Terminal in den Ordner `worker/3-tbt` wechseln
 * Publizieren per `wrangler publish`
