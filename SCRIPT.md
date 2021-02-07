@@ -256,8 +256,21 @@ Promise.all(
 [Das Ergebnis für Webpagetest](https://webpagetest.org/video/compare.php?tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02,210207_DiS5_6744528b4ce18b5f672041e8404e6a0a)
 [Videovergleich](https://webpagetest.org/video/view.php?end=full&tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02%2C210207_DiS5_6744528b4ce18b5f672041e8404e6a0a&bg=000000&text=ffffff&loc=Frankfurt%2C+Germany+-+EC2+-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+3GFast)
 
+## Zusammenfassung
+
+* Ohne die Chrome Devtools geht es nicht, allein schon zum Aufspüren von Problemen
+* Flankiert von einer IDE fühlt sich das Arbeiten mit den Local Overrides sehr gut an
+* Leider lassen sich nicht auf andere Seiten übertragen
+* Sie altern auch nicht gut mit einer sich verändernden Seite
+* Hier trumpfen die CloudFlare Worker auf, weil sie programmiert werden
+* Das macht sie aber auch etwas schwieriger / unintuitiver zu handhaben
+* Dafür bringen sie ein paar Extras mit, die man lokal nicht bekäme, wie z.B. die Brotli-Kompression 
+* Und, das wichtigste: Man kann seinen Erfolg mit anderen teilen und ihn externen Tools auch visualisieren
+
 Abschließend will ich noch darauf hinweisen, dass die CloudFlare Worker sich auch als dauerhafte Schicht vor eine Webseite 
 ziehen lassen, was dann sehr praktisch ist, wenn man es mit einem eher "schwierigen" CMS zu tun hat, welches wenig Anpassungen
 in seinem HTML zulässt.
 
-Vielen Dank für Eure Aufmerksamkeit!
+Vielen Dank für Eure Aufmerksamkeit und viel Spaß beim Prototypen!
+
+Das Script und alle Links zu dem Talk teile ich gleich mit Euch.
