@@ -34,15 +34,16 @@
 
 ## Intro
 
-Manchmal möchte man seine Ideen gerne prototypen, ohne dafür an den eigentlichen Code ranzugehen:
+Ihr kennt das vielleicht: Manchmal würde man Ideen gerne prototypen, ohne dafür an den eigentlichen Code ranzugehen. 
+Und zwar nicht nur im Bereich HTML und CSS, sondern auch im Bereich Performance-Optimierung. Gründe dafür:
 
-* weil man im Rahmen einer Kundenakquise Schätzungen über zukünftige Performance-Zugewinne machen möchte,
+* weil man im Rahmen einer Kundenakquise Schätzungen über zukünftige Performance-Zugewinne abgeben möchte,
 * weil man noch keinen Zugang zum Server hat, man aber dennoch schon losforschen möchte,
 * weil der Kunde über kein separates oder nur ein unzureichendes Testsystem verfügt,
 * weil die Deployment-Zyklen für schnelles Iterieren zu langsam sind
 * und manchmal auch, weil es schlicht und ergreifend Spaß macht. 
 
-Im Vorlauf des Talk zeige ich Euch 2 Arten, wie man an bestehenden Seiten herum-prototypen kann:
+Im Verlauf des Talk zeige ich Euch 2 Arten, wie man an bestehenden Seiten herum-prototypen kann:
 
 * Einmal direkt in den Chrome Devtools
 * Einmal in der Cloud mit Hilfe der sogenannten "CloudFlare Workers"
