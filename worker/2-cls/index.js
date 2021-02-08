@@ -12,7 +12,7 @@ class StylesheetHandler {
       .slider_header_start ~ .slider_header_start {
         display: none;
       }
-      .bx-wrapper .slider_header_start ~ .slider_header_start {
+      .bx-viewport .slider_header_start ~ .slider_header_start {
         display: block;
       }
       #stage-innerwrap {

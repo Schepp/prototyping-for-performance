@@ -9,6 +9,7 @@
 * SSH
 * Git
 * Node installieren
+  - bzw. `nvm use 14.15.1`
 * Wrangler installieren
   - `npm install -g @cloudflare/wrangler`
   - Wrangler per `wrangler login` konfigurieren
@@ -160,13 +161,23 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 ## Chrome Devtools Overrides: Layout Shift (LS) des Sliders reparieren
 
 * Devtools -> rechts oben auf ⁝ -> More Tools -> Rendering -> "Layout Shift Regions" aktivieren
-* Nur erstes Bild anzeigen, bis der Slider initialisiert ist:
+* Größte violette Einfärbung beim Slider
+* Devtools -> Elements -> rechte Maustaste auf `<div id="stage-innerwrap">` -> Break on -> subtree modifications
+* Seite neu laden
+* Wenn der Break kommt und damit "Sources" geöffnet wird -> rechts im "Call Stack" zeigen, dass der "bxslider" der Auslöser ist
+* Zu "Elements" wechseln und zeigen, dass noch keine "bx"-Klassen gesetzt sind
+* Zurück zu "Sources" wechseln und rechts bei "DOM Breakpoints" den Haken bei `div#stage-innerwrap...` entfernen
+* Ganz oben rechts auf den blauen Play-Knopf drücken zum Weitermachen
+
+**Lösung:**
+
+* Nur erstes Bild anzeigen, solange bis der Slider initialisiert ist:
 
 ```
 .slider_header_start ~ .slider_header_start {
   display: none;
 }
-.bx-wrapper .slider_header_start ~ .slider_header_start {
+.bx-viewport .slider_header_start ~ .slider_header_start {
   display: block;
 }
 ```
