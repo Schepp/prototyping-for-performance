@@ -267,6 +267,8 @@ Promise.all(
 [Das Ergebnis für Webpagetest](https://webpagetest.org/video/compare.php?tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02,210207_DiS5_6744528b4ce18b5f672041e8404e6a0a)
 [Videovergleich](https://webpagetest.org/video/view.php?end=full&tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02%2C210207_DiS5_6744528b4ce18b5f672041e8404e6a0a&bg=000000&text=ffffff&loc=Frankfurt%2C+Germany+-+EC2+-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+3GFast)
 
+Bzgl. des Webpagetest Bulk-Features, [siehe hier](https://webperformance.tips/tips/webpagetest-account/).
+
 ## Zusammenfassung
 
 * Ohne die Chrome Devtools geht es nicht, allein schon zum Aufspüren von Problemen
