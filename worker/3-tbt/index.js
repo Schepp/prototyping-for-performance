@@ -26,6 +26,8 @@ class StylesheetHandler {
 
     el.setAttribute('media', 'print');
     el.setAttribute('onload', `this.media='all'`);
+
+    el.after(`<script src="scripts.js" defer></script>`, { html: true });
   }
 }
 
@@ -39,12 +41,6 @@ class ImageHandler {
 class ScriptHandler {
   element(el) {
     el.remove();
-  }
-}
-
-class DocumentHandler {
-  end(end) {
-    end.append(`<script src="scripts.js" defer></script>`, { html: true });
   }
 }
 
@@ -65,7 +61,6 @@ async function handleRequest(request) {
       .on('link[rel="stylesheet"]', new StylesheetHandler())
       .on('img', new ImageHandler())
       .on('script[src^="/typo3conf/ext/"]', new ScriptHandler())
-      .onDocument(new DocumentHandler())
       .transform(response);
   }
 
