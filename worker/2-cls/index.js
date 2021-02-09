@@ -26,6 +26,9 @@ class StylesheetHandler {
       }
     </style>`, { html: true });
 
+    el.before(`<link rel="preload" as="font" crossorigin="anonymous" href="/typo3conf/ext/site_duesseldorf/Resources/Public/Fonts/dinpro-bold-webfont.woff">`, { html: true });
+    el.before(`<link rel="preload" as="font" crossorigin="anonymous" href="/typo3conf/ext/site_duesseldorf/Resources/Public/Fonts/dinpro-regular-webfont.woff">`, { html: true });
+
     /* ------------------------------------------------------ */
 
     el.before(`<link rel="preload" as="style" href="${href}">`, { html: true });

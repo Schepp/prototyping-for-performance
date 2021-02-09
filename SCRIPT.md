@@ -217,6 +217,15 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 
 ```
 
+Und schließlich: Font Preloaden, damit es später weniger Schrift-Reflows gibt:
+
+```
+
+<link rel="preload" as="font" crossorigin="anonymous" href="/typo3conf/ext/site_duesseldorf/Resources/Public/Fonts/dinpro-bold-webfont.woff">
+<link rel="preload" as="font" crossorigin="anonymous" href="/typo3conf/ext/site_duesseldorf/Resources/Public/Fonts/dinpro-regular-webfont.woff">
+
+```
+
 * Neuer Lighthouse Test -> CLS geht runter
 
 ## Layout Shift Reparatur im CloudFlare HTMLRewriter
@@ -262,6 +271,23 @@ Promise.all(
 * Alle bisherigen Scripte entfernen
 * Stattdessen `scripts.js` mit `defer`einbinden
   - `defer` -> JavaScript kann in separatem CPU-Thread geparsed werden
+* Weil das JavaScript bei `onload` feuert, und Bilder onload verzögern, machen wir sie lazy:
+
+```
+
+<img src="..." loading="lazy">
+
+```
+
+...und asynchron decodierbar:
+
+```
+
+<img src="..." decoding="async">
+
+```
+
+
 
 * Neuer Lighthouse Test -> Total Blocking Time (TBT) macht einen riesen Sprung, TTI auch
 

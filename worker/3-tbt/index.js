@@ -29,6 +29,13 @@ class StylesheetHandler {
   }
 }
 
+class ImageHandler {
+  element(el) {
+    el.setAttribute('loading','lazy');
+    el.setAttribute('decoding','async');
+  }
+}
+
 class ScriptHandler {
   element(el) {
     el.remove();
@@ -56,6 +63,7 @@ async function handleRequest(request) {
   if (request.headers.get('accept').includes('text/html')) {
     return new HTMLRewriter()
       .on('link[rel="stylesheet"]', new StylesheetHandler())
+      .on('img', new ImageHandler())
       .on('script[src^="/typo3conf/ext/"]', new ScriptHandler())
       .onDocument(new DocumentHandler())
       .transform(response);
