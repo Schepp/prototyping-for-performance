@@ -4,7 +4,7 @@
 
 ---
 
-## Christian Schaefer
+## Christian "Schepp" Schaefer
 
 ![Profilfoto von Christian, close-up mit Optiker-Messbrille, hat was von Cyperpunk](assets/profilbild.jpg) <!-- .element: class="profilepicture" -->
 
@@ -21,6 +21,16 @@
 * Howto: Prototypen in den Chrome Devtools ⚙ <!-- .element: class="fragment" -->
 * Howto: Prototypen in den CloudFlare Workers ☁ <!-- .element: class="fragment" -->
 * Kennenlernen neuer Analyse-Werkzeuge ✨ <!-- .element: class="fragment" -->
+
+---
+
+## Niemand muss mitschreiben!
+
+Alle Dinge, die gleich passieren und alle Tools und Links findet Ihr hier:
+
+[bit.ly/prototype-performance](bit.ly/prototype-performance)
+
+(findet Ihr auch in meinem Talque-Profiltext)
 
 ---
 
