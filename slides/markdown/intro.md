@@ -10,7 +10,7 @@
 
 * Frontend-Entwickler und Berater aus Düsseldorf.
 * Bloggt hin und wieder auf [schepp.dev](https://schepp.dev)
-* Twittert als [@derSchepp](https://twitter.com/derschepp)
+* Twittert regelmäßig als [@derSchepp](https://twitter.com/derschepp)
 * Redet sich um Kopf und Kragen im [Working Draft Podcast](https://workingdraft.de)
 * Co-organisiert das [Webworker NRW Meetup](https://www.meetup.com/de-DE/Webworker-NRW/)
 * Co-organisiert das (Online-) [CSS Café Meetup](https://www.meetup.com/de-DE/CSS-Cafe/)
