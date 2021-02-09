@@ -39,6 +39,7 @@
 * Bloggt hin und wieder auf [schepp.dev](https://schepp.dev)
 * Twittert als [@derSchepp](https://twitter.com/derschepp)
 * Redet sich um Kopf und Kragen im [Working Draft Podcast](https://workingdraft.de)
+* Co-organisiert das (Online-) [CSS Café Meetup](https://www.meetup.com/de-DE/CSS-Cafe/)
 
 ## Intro
 
@@ -183,31 +184,37 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 * Nur erstes Bild anzeigen, solange bis der Slider initialisiert ist:
 
 ```
+
 .slider_header_start ~ .slider_header_start {
   display: none;
 }
 .bx-viewport .slider_header_start ~ .slider_header_start {
   display: block;
 }
+
 ```
 
 * Slider-Höhe korrigieren:
 
 ```
+
 #stage-innerwrap {
   height: auto !important;
 }
+
 ```
 
 * Bild-Dimensionen voreinstellen:
 
 ```
+
 .slider-item-img {
   width: 100%;
   height: auto;
   aspect-ratio: 98 / 46;
   object-fit: cover;
 }
+
 ```
 
 * Neuer Lighthouse Test -> CLS geht runter
@@ -231,6 +238,7 @@ IHR MÜSST ALSO NICHTS NOTIEREN !!!
 * Script-Sammler in die Console packen:
 
 ```
+
 Promise.all(
   Array.from(document.querySelectorAll('script[src^="/typo3conf/ext"]'))
     .filter(el =>
@@ -244,6 +252,7 @@ Promise.all(
     contents.join('\r\n')
   );
 });
+
 ```
 
 (Achtung beim Rauskopieren und Einfügen, dass in dem `.join()` das `r` und das `n` beide nur mit jeweils einem Backslash escaped sind)
