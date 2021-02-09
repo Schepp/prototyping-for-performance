@@ -1,6 +1,6 @@
 <!-- .slide: data-background="assets/shutterstock_1570891330.jpg" data-state="darken-background" -->
 
-# Performance-Experimente <br>mit Chrome Devtools und CloudFlare Workers
+# Performance-Experimente <br>mit Chrome Devtools <br>und CloudFlare Workers
 
 ---
 
