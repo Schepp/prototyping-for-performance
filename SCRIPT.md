@@ -309,8 +309,8 @@ Promise.all(
 * https://www.duesseldorf.de/ 
 * https://duesseldorf.schepp.workers.dev/
 
-[Das Ergebnis für Webpagetest](https://webpagetest.org/video/compare.php?tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02,210207_DiS5_6744528b4ce18b5f672041e8404e6a0a)
-[Videovergleich](https://webpagetest.org/video/view.php?end=full&tests=210207_DiAS_c559aba8cedd5f7711606ddda46e7b02%2C210207_DiS5_6744528b4ce18b5f672041e8404e6a0a&bg=000000&text=ffffff&loc=Frankfurt%2C+Germany+-+EC2+-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+3GFast)
+[Das Ergebnis für Webpagetest](https://webpagetest.org/video/compare.php?tests=210209_Di5T_68c131771d8146f3764b5b985e1c0ea5,210209_DiV5_5c35857a4ea3c043d1ec4631bcf5e0a8)
+[Videovergleich](https://webpagetest.org/video/view.php?end=visual&tests=210209_Di5T_68c131771d8146f3764b5b985e1c0ea5%2C210209_DiV5_5c35857a4ea3c043d1ec4631bcf5e0a8&bg=000000&text=ffffff&loc=Frankfurt%2C+Germany+-+EC2+-+Chrome+-+Emulated+Motorola+G+%28gen+4%29+-+3GFast)
 
 Bzgl. des Webpagetest Bulk-Features, [siehe hier](https://webperformance.tips/tips/webpagetest-account/).
 
