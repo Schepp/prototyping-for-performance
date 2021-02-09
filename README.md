@@ -5,3 +5,5 @@ Es gibt viele Gründe gegen Performance-Experimente am lebenden Objekt. Sei es, 
 ---
 
 Das Script mit allen Schritten und Links findet Ihr [hier](SCRIPT.md).
+
+Die Intro-Slides findet Ihr [hier](https://schepp.github.io/prototyping-for-performance/slides)

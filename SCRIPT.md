@@ -29,8 +29,16 @@
 * Devtools -> Network Request Blocking -> leeren
 * Devtools -> alle Tab unten schließen
 * Devtools -> Network -> Einstellungsrädchen -> "use large request rows" ausstellen
+* Devtools -> Elements -> DOM-Breakpoints entfernen 
 * Auf [www.duesseldorf.de](https://www.duesseldorf.de) gehen und Slider abschalten
 * Initialen Worker per `wrangler publish` publizieren
+
+## Steckbrief Christian Schaefer
+
+* Frontend-Entwickler und Berater aus Düsseldorf.
+* Bloggt hin und wieder auf [schepp.dev](https://schepp.dev)
+* Twittert als [@derSchepp](https://twitter.com/derschepp)
+* Redet sich um Kopf und Kragen im [Working Draft Podcast](https://workingdraft.de)
 
 ## Intro
 
