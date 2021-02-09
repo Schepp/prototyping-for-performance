@@ -320,7 +320,7 @@ Bzgl. des Webpagetest Bulk-Features, [siehe hier](https://webperformance.tips/ti
 * Leider lassen sich nicht auf andere Seiten übertragen
 * Sie altern auch nicht gut mit einer sich verändernden Seite
 * Hier trumpfen die CloudFlare Worker auf, weil sie programmiert werden
-* Das macht sie aber auch etwas schwieriger / unintuitiver zu handhaben
+* Das macht sie aber auch etwas abstrakter / unintuitiver zu handhaben
 * Dafür bringen sie ein paar Extras mit, die man lokal nicht bekäme, wie z.B. die Brotli-Kompression 
 * Und, das wichtigste: Man kann seinen Erfolg mit anderen teilen und ihn externen Tools auch visualisieren
 
