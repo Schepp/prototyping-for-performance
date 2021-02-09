@@ -27,9 +27,15 @@ class StylesheetHandler {
     el.setAttribute('media', 'print');
     el.setAttribute('onload', `this.media='all'`);
 
+    /* ------------------------------------------------------ */
+
     el.after(`<script src="scripts.js" defer></script>`, { html: true });
+
+    /* ------------------------------------------------------ */
   }
 }
+
+/* ------------------------------------------------------ */
 
 class ImageHandler {
   element(el) {
@@ -37,6 +43,8 @@ class ImageHandler {
     el.setAttribute('decoding','async');
   }
 }
+
+/* ------------------------------------------------------ */
 
 class ScriptHandler {
   element(el) {
