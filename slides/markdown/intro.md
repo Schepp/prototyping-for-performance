@@ -25,16 +25,6 @@
 
 ---
 
-## Niemand muss mitschreiben!
-
-Alle Dinge, die gleich passieren und alle Tools und Links findet Ihr hier:
-
-[bit.ly/prototype-performance](bit.ly/prototype-performance)
-
-(findet Ihr auch in meinem Talque-Profiltext)
-
----
-
 ## Prototypen&hellip; Warum überhaupt? 🤔
 
 * zur Kundenakquise <!-- .element: class="fragment" -->
