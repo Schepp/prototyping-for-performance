@@ -46,3 +46,11 @@ Alle Dinge, die gleich passieren und alle Tools und Links findet Ihr hier:
 ---
 
 ## Das Anschauungsobjekt&hellip;
+
+---
+
+## Vielen Dank!
+
+Vortragsmaterial: [bit.ly/prototype-performance](bit.ly/prototype-performance)
+
+Feedback & Fragen an <a href="javascript:location='mailto:\u0073\u0063\u0068\u0061\u0065\u0070\u0070\u0040\u0067\u006d\u0078\u002e\u0064\u0065';void 0"><script type="text/javascript">document.write('\u0073\u0063\u0068\u0061\u0065\u0070\u0070\u0040\u0067\u006d\u0078\u002e\u0064\u0065')</script></a>
